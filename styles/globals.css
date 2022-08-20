@@ -1,29 +1,40 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: RGB(93,90,79);
-  display: flex;
-  justify-content: space-around;
-}
+/* ////////////////////////////////////////////////////////// */
+/* Global Styles */
+/* Fonts */
+@import url('https://use.typekit.net/vcg4foj.css');
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Colors */
+:root {
+  --cream: #ffffdd;
+  --primary: #cccc56;
+  --light: #9a9a70;
+  --dark: #646057;
+  --darker: #333014;
 }
 
 * {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  font-family: arponasans, sans-serif;
+  display: flex;
+  justify-content: space-around;
+}
+
+html {
+  background: linear-gradient(180deg, var(--dark), var(--darker));
+}
+body {
+  background-image: url('../public/h-bg-left.svg'),
+    url('../public/h-bg-right.svg');
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
