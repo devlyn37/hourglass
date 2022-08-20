@@ -1,0 +1,50 @@
+.container {
+    padding: 0 2rem;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+}
+
+.leftPanel {
+    width: 25%;
+    height: 95%;
+    border-width: 0px 2px 0px 0px;
+    border-color: RGB(204,204,104);
+    border-style: solid;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 200px 0px 200px 0px;
+}
+
+.rightPanel {
+    width: 65%;
+    height: 95%;
+    /* border: 1px solid green; */
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 200px 0px 200px 0px;
+}
+
+.uploadFileBar {
+    display: inline;   
+}
+
+.button {
+    border-radius: 10px;
+    border: 1px solid RGB(50, 48, 24);
+    margin: 10px;
+    padding: 5px 10px 5px 10px;
+    text-align: center;
+    background-color: RGB(50, 48, 24);
+    color: white;
+}

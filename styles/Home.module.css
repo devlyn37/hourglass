@@ -1,6 +1,36 @@
 .container {
   padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  /* margin: 100px; */
 }
+
+.logo {
+  color: RGB(204,204,104);
+}
+
+.navigator {
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: space-around;
+}
+
+.button {
+  font-size: 20px;
+  border-radius: 10px;
+  border: 1px solid RGB(50,48,24);
+  margin: 40px;
+  padding: 15px 60px 15px 60px;
+  text-align: center;
+  background-color: RGB(50,48,24);
+  color: white;
+}
+
+/* Default styles from Next */
 
 .main {
   min-height: 100vh;
