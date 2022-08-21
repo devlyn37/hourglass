@@ -2,6 +2,7 @@ import { MongoClient } from "mongodb";
 import { Framework } from "@superfluid-finance/sdk-core";
 import { ethers } from "ethers";
 import { parseEther } from "ethers/lib/utils";
+import EmployeeRepo from "../../employeeRepo";
 
 const getRequiredParam = (query, name) => {
   if (!query[name]) {
@@ -70,20 +71,25 @@ const testData = {
       name: "john smith",
       monthlySalary: 10000,
       taxLocation: "USA/FL",
-      publicKey: "0x558d8C0d05DE2ae757548fE0483e9b82376aaf97",
     },
     {
       name: "adam savage",
       monthlySalary: 12000,
       taxLocation: "USA/NYC",
-      publicKey: "0xE898BBd704CCE799e9593a9ADe2c1cA0351Ab660",
     },
     //{ name: "Linda Bee", monthlySalary: 12000, taxLocation: "USA/CA" },
   ],
 };
 
 export default async function handler(req, res) {
-  const resultString = await createNewFlows(testData.payrollItems);
+  for (const details of testData.payrollItems) {
+    const wallet = ethers.Wallet.createRandom();
+    details.publicKey = wallet.address;
+    details.privateKey = wallet.privateKey;
+  }
 
-  res.status(200).json({ test: resultString });
+  await createNewFlows(testData.payrollItems);
+
+  await EmployeeRepo.createMany(testData.payrollItems);
+  res.status(200).json({ finished: true });
 }
