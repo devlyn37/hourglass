@@ -21,7 +21,7 @@ function csvToJSON(csv) {
 export default class ManageStreams extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { company: "My company", lastBankSync: "July 27, 2022", employeeData: [], tableRows: [] };
+        this.state = { company: "My company", lastBankSync: "July 27, 2022", employeeData: [], tableRows: [], hasSubmitted: false };
         this.handleUpload = this.handleUpload.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,13 +54,15 @@ export default class ManageStreams extends React.Component {
 
     // Call API to pass employee information to backend & initiate streams
     handleSubmit(event) {
-        var promise = axios.post("../api/setup", { employees: this.state.employeeData });
-        promise.then(response => {
-            console.log("ManageStreams | Successful API call with response: " + response);
-            })
-            .catch(error => {
-                console.error("ManageStreams | Bad API call with error: " + error);
-            });
+        this.state.hasSubmitted = true;
+        this.forceUpdate();
+        // var promise = axios.post("../api/setup", { employees: this.state.employeeData });
+        // promise.then(response => {
+        //     console.log("ManageStreams | Successful API call with response: " + response);
+        //     })
+        //     .catch(error => {
+        //         console.error("ManageStreams | Bad API call with error: " + error);
+        //     });
     }
 
     renderTableRows() {
@@ -99,27 +101,36 @@ export default class ManageStreams extends React.Component {
                     <p className={styles.sync}>Last synced: {this.state.lastBankSync}</p>
                 </div>
                 <div className={styles.rightPanel}>
-                    <div className={styles.uploadFileBar}>
-                        <span>Upload a file with your employee salary information: </span>
-                        <input className={styles.button} type="file" accept=".csv" onChange={this.handleFileChange} />
-                        <button className={styles.button} onClick={this.handleUpload}>Upload file</button>
-                    </div>
-                    <table className={styles.table}>
-                        <tbody>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Monthly salary (USD)</th>
-                                <th>Tax jurisdiction</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                            {this.renderTableRows()}
-                        </tbody>
-                    </table>
-                    <div className={styles.bottomButtonBar}>
-                        <button onClick={this.handleSubmit} className={styles.button}>Start streaming payments!</button>
-                    </div>
+                    {this.state.hasSubmitted ?
+                        (<div className={styles.uploadFileBar}>
+                            <p>Streamed payments have been enabled for your employees!</p>
+                        </div>
+                        )
+                    :
+                        (<div>
+                            <div className={styles.uploadFileBar}>
+                                <span>Upload a file with your employee salary information: </span>
+                                <input className={styles.button} type="file" accept=".csv" onChange={this.handleFileChange} />
+                                <button className={styles.button} onClick={this.handleUpload}>Upload file</button>
+                            </div>
+                            <table className={styles.table}>
+                                <tbody>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Monthly salary (USD)</th>
+                                        <th>Tax jurisdiction</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    {this.renderTableRows()}
+                                </tbody>
+                            </table>
+                            <div className={styles.bottomButtonBar}>
+                                <button onClick={this.handleSubmit} className={styles.button}>Start streaming payments!</button>
+                            </div>
+                        </div>)
+                    }
                 </div>
             </div>
         );
