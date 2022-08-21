@@ -40,11 +40,10 @@
 .rightPanel {
   flex-basis: 65%;
   height: 95%;
-  /* border: 1px solid green; */
   margin: 10px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-around;
   padding: 200px 0px 200px 0px;
   text-align: left;
@@ -56,6 +55,7 @@
   justify-content: center;
   gap: 1rem;
   color: var(--light);
+  margin: 10px;
 }
 
 .bankbutton,
@@ -82,6 +82,17 @@
 
 .button {
   padding: 0.7rem 1.2rem;
+}
+
+.bottomButtonBar {
+  flex-basis: 65%;
+  margin: 10px;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around; */
+  margin: 10px;
+  text-align: left;
 }
 
 .button:hover,

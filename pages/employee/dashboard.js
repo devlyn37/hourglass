@@ -23,16 +23,16 @@ export default class Dashboard extends React.Component {
                 </div>
 
                 <div className={styles.dashboard}>
-                    <p className={styles.streamBalance}>{this.state.streamBalance}</p>
+                    <p className={styles.streamBalance}>${this.state.streamBalance}</p>
                     <div className={styles.dashboardDetails}>
                         <div className={styles.dashboardTile}>
                             <p>Staking rewards</p>
-                            <span>{this.state.stakePercent}</span>
-                            <span>{this.state.stakeRewards}</span>
+                            <span>{this.state.stakePercent}{' '}</span>
+                            <span>${this.state.stakeRewards}</span>
                         </div>
                         <div className={styles.dashboardTile}>
                             <p>Debit balance available</p>
-                            <span>{this.state.debitBalance}</span>
+                            <span>${this.state.debitBalance}</span>
                         </div>
                     </div>
                     <div>
