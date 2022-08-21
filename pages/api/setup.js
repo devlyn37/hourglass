@@ -2,35 +2,37 @@ import { MongoClient } from "mongodb";
 import { Framework } from "@superfluid-finance/sdk-core";
 import { ethers } from "ethers";
 import { parseEther } from "ethers/lib/utils";
-import EmployeeRepo from "../../employeeRepo";
 
-const getRequiredParam = (query, name) => {
-  if (!query[name]) {
-    throw new Error(`Missing query param ${name}`);
-  }
+// const getRequiredParam = (query, name) => {
+//   if (!query[name]) {
+//     throw new Error(`Missing query param ${name}`);
+//   }
 
-  return query[name];
-};
+//   return query[name];
+// };
 
 function formatMonthlySalaryForSuperfluid(monthlySalary) {
-  const dollarsPerSecond = parseFloat(monthlySalary) / 30 / 24 / 60 / 60;
+  var dollarsPerSecond = parseFloat(monthlySalary) / 30 / 24 / 60 / 60;
+  // Because of limited faucet funds, manually max this out 
+  dollarsPerSecond = dollarsPerSecond > 0.000001 ? 0.000001 : dollarsPerSecond;
   return parseEther(dollarsPerSecond.toString());
 }
 
-//where the Superfluid logic takes place
+// Where the Superfluid logic takes place
 async function createNewFlows(recipientDetails) {
   const provider = new ethers.providers.JsonRpcProvider(
     process.env.RPC,
-    "goerli"
+    "rinkeby"
   );
+
   const sf = await Framework.create({
-    chainId: 5,
+    chainId: 4,
     provider: provider,
   });
 
   const signer = sf.createSigner({
     privateKey: process.env.TREASURY_PRIVATE_KEY,
-    provider: provider,
+    provider: provider
   });
 
   const DAIxContract = await sf.loadSuperToken("fDAIx");
@@ -39,6 +41,7 @@ async function createNewFlows(recipientDetails) {
   try {
     const operations = recipientDetails.map((details) => {
       return sf.cfaV1.createFlow({
+        sender: "0x5fd4e33388669070738f60a020d1a7E079E4dD04",
         flowRate: formatMonthlySalaryForSuperfluid(details.monthlySalary),
         receiver: details.publicKey,
         superToken: DAIx,
@@ -54,7 +57,7 @@ async function createNewFlows(recipientDetails) {
     console.log(txn);
 
     return `Congrats - you've just created some money streams!
-    Network: Goerli
+    Network: Rinkeby
     Super Token: DAIx
     `;
   } catch (error) {
@@ -65,31 +68,44 @@ async function createNewFlows(recipientDetails) {
   }
 }
 
-const testData = {
-  payrollItems: [
-    {
-      name: "john smith",
-      monthlySalary: 10000,
-      taxLocation: "USA/FL",
-    },
-    {
-      name: "adam savage",
-      monthlySalary: 12000,
-      taxLocation: "USA/NYC",
-    },
-    //{ name: "Linda Bee", monthlySalary: 12000, taxLocation: "USA/CA" },
-  ],
-};
+// const testData = {
+//   payrollItems: [
+//     {
+//       name: "john smith",
+//       monthlySalary: 10000,
+//       taxLocation: "USA/FL",
+//     },
+//     {
+//       name: "adam savage",
+//       monthlySalary: 12000,
+//       taxLocation: "USA/NYC",
+//     },
+//     //{ name: "Linda Bee", monthlySalary: 12000, taxLocation: "USA/CA" },
+//   ],
+// };
+
+async function createEmployees(employees) {
+  const client = new MongoClient(process.env.MONGO_CONNECTION);
+  await client.connect();
+  const employee = await client
+    .db("hourglass")
+    .collection("employees")
+    .insertMany(employees);
+
+  console.log("Mongo response: " + employee);
+}
 
 export default async function handler(req, res) {
-  for (const details of testData.payrollItems) {
-    const wallet = ethers.Wallet.createRandom();
-    details.publicKey = wallet.address;
-    details.privateKey = wallet.privateKey;
+  var employees = req.body.employees;
+  
+  for (var employee of employees) {
+    var wallet = ethers.Wallet.createRandom();
+    employee.publicKey = wallet.address;
+    employee.privateKey = wallet.privateKey;
   }
 
-  await createNewFlows(testData.payrollItems);
+  await createNewFlows(employees);
 
-  await EmployeeRepo.createMany(testData.payrollItems);
+  await createEmployees(employees);
   res.status(200).json({ finished: true });
 }

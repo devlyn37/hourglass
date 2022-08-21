@@ -1,16 +1,15 @@
 import { MongoClient } from "mongodb";
 
+// Receives an array of JSON employees in the request body
 export default async function handler(req, res) {
   const client = new MongoClient(process.env.MONGO_CONNECTION);
   await client.connect();
-  const collection = await client
+  const employee = await client
     .db("hourglass")
     .collection("employees")
-    .find({})
-    .toArray();
+    .insertMany(req.body.employees);
 
-  console.log(collection);
-  var obj = JSON.stringify(collection);
-  console.log("Stringified is: " + obj);
-  res.status(200).send(obj);
+  console.log("Mongo response: " + employee);
+
+  res.status(200).send();
 }

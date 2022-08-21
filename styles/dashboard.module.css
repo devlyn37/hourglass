@@ -83,3 +83,8 @@
   color: var(--primary);
   background-color: var(--dark);
 }
+
+.cardContainer {
+  width: 300px;
+  height: 100px;
+}
