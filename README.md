@@ -1,34 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Hourglass - [ETHMexico](https://mexico.ethglobal.com)
 
-## Getting Started
+_By [devlyn37,](https://github.com/devlyn37) [eduairet,](https://github.com/eduairet) [nick-bash](https://github.com/nick-bash)_
 
-First, run the development server:
+![Hourglass logo](./readme-resources/hourglass-logo.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Have you ever imagined having your monthly income always available and growing in real-time?
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Hourglass** is an app that allows you as an employer to create payment streamings for your employees, thanks to the **power of [Superfluid](https://www.superfluid.finance/home)** we were able to mount a real-time payment tool that allows the employee **to see his money growing day by day,** and most importantly, **to have immediate access to it anytime, anywhere,** giving him the possibility of **claiming his funds or also earn interest while holding them** into the company's wallet **thanks to [AAVE.](https://aave.com)**
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+The prototype has a simple logic to follow:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- It has a landing page that redirects you to the employer or employee login pages.
+  ![Landing](./readme-resources/landing.png)
+  ![Landing](./readme-resources/employer.png)
+  ![Landing](./readme-resources/employee.png)
+- As an employer, you can manage your employees cashflow and make sure that they will always have their payments by a simple Bank Account Sync **(don't worry, we'll make crypto invisible and easy for you)**
+  ![Landing](./readme-resources/streaming.png)
+- As an employee you'll have a dashboard where you'll be able to check your money growing all the time, take a look at your interest rewards and claim your funds, we don't want to scare non-crypto native folks, that's why by default you'll have your streaming connected to your bank account but you can always set your wallet.
+  ![Landing](./readme-resources/dashboard.png)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check the live prototype on [hourglass-5hb11aa24-hourglass.vercel.app](https://hourglass-5hb11aa24-hourglass.vercel.app)
