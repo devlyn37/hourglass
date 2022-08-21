@@ -1,15 +1,16 @@
 import React from "react";
-import Image from "next/image";
 import styles from "../../styles/manageStreams.module.css"
 import SmallLogo from "../../components/smallLogo";
+import editBtn from '../../public/edit-button.svg';
+import deleteBtn from '../../public/delete-button.svg';
 
 function csvToJSON(csv) {
     var rows = csv.split('\n').slice(1);
     var payrollItems = [];
-    for(var i = 0; i < rows.length; i++) {
+    for (var i = 0; i < rows.length; i++) {
         var fields = rows[i].split(',');
         // Remove new line & carriage return from the last field
-        var payroll = {name: fields[0], email: fields[1], monthlySalary: fields[2], taxLocation: fields[3].replace(/(\r\n|\n|\r)/gm, "")};
+        var payroll = { name: fields[0], email: fields[1], monthlySalary: fields[2], taxLocation: fields[3].replace(/(\r\n|\n|\r)/gm, "") };
         payrollItems.push(payroll);
     }
 
@@ -19,7 +20,7 @@ function csvToJSON(csv) {
 export default class ManageStreams extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { company: "My company", lastBankSync: "July 27, 2022", employeeData: [], tableRows: []};
+        this.state = { company: "My company", lastBankSync: "July 27, 2022", employeeData: [], tableRows: [] };
         this.handleUpload = this.handleUpload.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
     }
@@ -28,12 +29,12 @@ export default class ManageStreams extends React.Component {
         this.state.employeeData = employees;
         console.log("New employee data: " + this.state.employeeData);
     }
-    
+
     handleFileChange(event) {
         var reader = new FileReader();
         // Pass reader.result to a separate handler because, otherwise,
         // the inline definition does not have closure, access to state, etc.
-        reader.onloadend = () => {this.readerOnLoadEnd(reader.result)};
+        reader.onloadend = () => { this.readerOnLoadEnd(reader.result) };
         reader.readAsText(event.target.files[0]);
     }
 
@@ -58,7 +59,7 @@ export default class ManageStreams extends React.Component {
     }
 
     renderTableRows() {
-        if(this.state.tableRows.length < 1) 
+        if (this.state.tableRows.length < 1)
             return <></>;
         else {
             return (this.state.tableRows.map(row => {
@@ -68,6 +69,14 @@ export default class ManageStreams extends React.Component {
                         <td>{row.email}</td>
                         <td>{row.monthlySalary}</td>
                         <td>{row.taxLocation}</td>
+                        <td
+                            style={{ backgroundImage: `url(${editBtn.src})` }}
+                            className={styles.action}>
+                        </td>
+                        <td
+                            style={{ backgroundImage: `url(${deleteBtn.src})` }}
+                            className={styles.action}>
+                        </td>
                     </tr>
                 )
             }));
@@ -79,30 +88,32 @@ export default class ManageStreams extends React.Component {
             <div className={styles.container}>
                 <div className={styles.leftPanel}>
                     <SmallLogo />
-                    <p>{this.state.company}</p>
-                    <button className={styles.button}>Sync bank account</button>
-                    <p>Last synced: {this.state.lastBankSync}</p>
+                    <p className={styles.company}>{this.state.company}</p>
+                    <button className={styles.bankbutton}>Sync bank account</button>
+                    <p className={styles.sync}>Last synced: {this.state.lastBankSync}</p>
                 </div>
                 <div className={styles.rightPanel}>
                     <div className={styles.uploadFileBar}>
                         <span>Upload a file with your employee salary information: </span>
-                        <input type="file" accept=".csv" onChange={this.handleFileChange} />
-                        <button onClick={this.handleUpload}>Upload file</button>
+                        <input className={styles.button} type="file" accept=".csv" onChange={this.handleFileChange} />
+                        <button className={styles.button} onClick={this.handleUpload}>Upload file</button>
                     </div>
-                    <div>
-                        <table>
+                        <table className={styles.table}>
                             <tbody>
                                 <tr>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Monthly salary (USD)</th>
                                     <th>Tax jurisdiction</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                                 {this.renderTableRows()}
                             </tbody>
                         </table>
+                    <div className={styles.bottomButtonBar}>
+                        <button onClick={this.handleSubmit} className={styles.button}>Start streaming payments!</button>
                     </div>
-                    <button onClick={this.handleSubmit}>Start streaming payments!</button>
                 </div>
             </div>
         );
