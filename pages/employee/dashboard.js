@@ -9,9 +9,31 @@ export default class Dashboard extends React.Component {
         this.state = {
             employeeName: "Satoshi Nakamoto",
             employeeEmail: "satoshi@gmail.com",
-            streamBalance: "3,457.29",
+            streamBalance: 3457.29,
             currency: "USD", stakePercent: "5.0%", stakeRewards: "25.23", debitBalance: "2,945.50"
         };
+        this.balanceHandler = this.balanceHandler.bind(this);
+    }
+
+    componentDidMount() {
+        this.balanceHandler();
+    }
+    
+    componentDidUpdate() {
+        this.balanceHandler();
+    }
+
+    balanceHandler() {
+        // document.setTimeout(() => {
+            
+        // }, timeout);
+        console.log("balance handler");
+        setTimeout(() => {
+            this.setState({streamBalance: Number(this.state.streamBalance + 0.26)});
+            console.log(this.state);
+            //this.forceUpdate();
+            console.log("Here");
+        }, 1500);
     }
 
     render() {
@@ -24,7 +46,7 @@ export default class Dashboard extends React.Component {
                 </div>
 
                 <div className={styles.dashboard}>
-                    <p className={styles.streamBalance}>${this.state.streamBalance}</p>
+                    <p className={styles.streamBalance}>${this.state.streamBalance.toFixed(2)}</p>
                     <div className={styles.dashboardDetails}>
                         <div className={styles.dashboardTile}>
                             <p>Staking rewards</p>
