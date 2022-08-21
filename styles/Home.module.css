@@ -1,6 +1,48 @@
 .container {
-  padding: 0 2rem;
+  padding: 2rem 2rem 8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
 }
+
+.logo {
+  min-height: 12rem;
+  width: 100%;
+  background-image: url('../public/hourglass-logo.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.navigator {
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+  align-items: space-around;
+}
+
+.button {
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  padding: 15px 60px 15px 60px;
+  text-align: center;
+  background-color: var(--darker);
+  color: var(--cream);
+  transition: all ease 0.5s;
+}
+
+.button:hover {
+  color: var(--primary);
+  background-color: var(--dark);
+}
+
+/* Default styles from Next */
 
 .main {
   min-height: 100vh;
@@ -83,47 +125,4 @@
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
-  }
 }
