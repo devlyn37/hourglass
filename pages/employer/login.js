@@ -1,5 +1,5 @@
 import Logo from "../../components/logo.js"
-import Link from "next/Link"
+import Link from "next/link"
 import React from "react";
 
 export default class Login extends React.Component {

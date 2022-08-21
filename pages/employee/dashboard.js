@@ -1,5 +1,4 @@
 import SmallLogo from "../../components/smallLogo.js"
-import Link from "next/Link"
 import React from "react";
 import styles from "../../styles/dashboard.module.css"
 
