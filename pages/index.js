@@ -9,14 +9,20 @@ import Logo from '../components/logo.js';
 export default function Home() {
   const [testData, setTestData] = useState([]);
 
-  // useEffect(() => {
-  //   const test = async () => {
-  //     const result = await axios.get("api/hello");
-  //     setTestData(JSON.stringify(result.data.testData));
-  //   };
-
-  //   test();
-  // }, []);
+  useEffect(() => {
+    const test = async () => {
+      const result = await axios.get("api/hello");
+      setTestData(JSON.stringify(result.data.testData));
+    };
+  
+    test();
+    if(testData == "")
+    {
+      console.log("Test data from api/hello call is empty");
+    } else {
+      console.log("Test data from api/hello call: " + testData);
+    }
+  }, []);
 
   return (
     <div className={styles.container}>
