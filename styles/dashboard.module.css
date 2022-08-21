@@ -1,52 +1,85 @@
 .container {
-    padding: 0 2rem;
-    height: 100vh;
-    width: 100vw;
-    background-color: white;
+  padding: 1rem 2rem 1rem 2rem;
+  height: 100vh;
+  width: 100vw;
+  background-color: white;
 }
 
 .navBar {
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.employee {
+  flex-basis: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--light);
+  text-transform: uppercase;
 }
 
 .dashboard {
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin: 50px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 50px;
 }
 
 .streamBalance {
-    font-size: 80px;
-    color: RGB(117, 117, 55);
-    border: 1px solid RGB(193,193,99);
-    border-radius: 10px;
-    padding: 20px;
+  font-size: 80px;
+  color: var(--dark);
+  border: 4px solid var(--primary);
+  border-radius: 10px;
+  padding: 3rem 5rem 3.5rem 5rem;
+  margin-bottom: 2rem;
 }
 
 .dashboardDetails {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  text-align: center;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
 }
 
 .dashboardTile {
-    border: 1px solid RGB(193,193,99);
-    color: RGB(154,154,117); 
+  text-transform: uppercase;
+  flex-basis: 50%;
+  color: var(--dark);
+  border-radius: 10px;
+  border: 4px solid var(--primary);
+  padding: 2rem;
+  line-height: 1.5rem;
+}
+
+.send {
+  display: flex;
+  gap: 1rem;
 }
 
 .button {
-    border-radius: 10px;
-    border: 1px solid RGB(50, 48, 24);
-    margin: 10px;
-    padding: 5px 10px 5px 10px;
-    text-align: center;
-    background-color: RGB(50, 48, 24);
-    color: white;
+  flex-basis: 50%;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  margin: 10px;
+  padding: 15px 60px 15px 60px;
+  text-align: center;
+  background-color: var(--darker);
+  color: var(--cream);
+  transition: all ease 0.5s;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.button:hover {
+  color: var(--primary);
+  background-color: var(--dark);
 }

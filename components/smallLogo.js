@@ -1,8 +1,10 @@
-import styles from '../styles/Home.module.css'
-import Image from 'next/image'
+import styles from '../styles/Home.module.css';
+import Link from 'next/link';
 
 export default function SmallLogo() {
-    return (
-        <Image src="/hgs-logo.svg" className={styles.logo} width={500} height={200}/>
-    );
+  return (
+    <Link href='/'>
+      <div className={styles.slogo} />
+    </Link>
+  );
 }
