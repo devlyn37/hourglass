@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from "react";
 import styles from "../../styles/manageStreams.module.css"
 import SmallLogo from "../../components/smallLogo";
@@ -23,11 +24,7 @@ export default class ManageStreams extends React.Component {
         this.state = { company: "My company", lastBankSync: "July 27, 2022", employeeData: [], tableRows: [] };
         this.handleUpload = this.handleUpload.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
-    }
-
-    updateEmployeeData(employees) {
-        this.state.employeeData = employees;
-        console.log("New employee data: " + this.state.employeeData);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleFileChange(event) {
@@ -40,6 +37,8 @@ export default class ManageStreams extends React.Component {
 
     readerOnLoadEnd(result) {
         this.state.employeeData = csvToJSON(result);
+        console.log("meow");
+        console.log(this.state.employeeData);
         // console.log(this.state.employeeData[1].name);
     }
 
@@ -55,10 +54,17 @@ export default class ManageStreams extends React.Component {
 
     // Call API to pass employee information to backend & initiate streams
     handleSubmit(event) {
-        console.log("submit button");
+        var promise = axios.post("../api/setup", { employees: this.state.employeeData });
+        promise.then(response => {
+            console.log("ManageStreams | Successful API call with response: " + response);
+            })
+            .catch(error => {
+                console.error("ManageStreams | Bad API call with error: " + error);
+            });
     }
 
     renderTableRows() {
+        console.log("renderTableRows: employee data is " + this.state.employeeData);
         if (this.state.tableRows.length < 1)
             return <></>;
         else {
@@ -98,19 +104,19 @@ export default class ManageStreams extends React.Component {
                         <input className={styles.button} type="file" accept=".csv" onChange={this.handleFileChange} />
                         <button className={styles.button} onClick={this.handleUpload}>Upload file</button>
                     </div>
-                        <table className={styles.table}>
-                            <tbody>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Monthly salary (USD)</th>
-                                    <th>Tax jurisdiction</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
-                                </tr>
-                                {this.renderTableRows()}
-                            </tbody>
-                        </table>
+                    <table className={styles.table}>
+                        <tbody>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Monthly salary (USD)</th>
+                                <th>Tax jurisdiction</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            {this.renderTableRows()}
+                        </tbody>
+                    </table>
                     <div className={styles.bottomButtonBar}>
                         <button onClick={this.handleSubmit} className={styles.button}>Start streaming payments!</button>
                     </div>

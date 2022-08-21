@@ -7,22 +7,15 @@ import Logo from '../components/logo.js';
 import BgShape from '../components/bgshape.js';
 
 export default function Home() {
-  const [testData, setTestData] = useState([]);
-
-  useEffect(() => {
-    const test = async () => {
-      const result = await axios.get("api/hello");
-      setTestData(JSON.stringify(result.data.testData));
-    };
-  
-    test();
-    if(testData == "")
-    {
-      console.log("Test data from api/hello call is empty");
-    } else {
-      console.log("Test data from api/hello call: " + testData);
-    }
-  }, []);
+  // Test Mongo connection with api/hello call
+  var promise = axios.get("api/hello");
+  var data = "";
+  promise.then(r => {
+    data = r.data;
+    console.log("Successful mongo connection");
+    // console.log("Data is: " + data);
+    // console.log("First entry name " + data[0].name);
+  }).catch(e => console.error(e));  
 
   return (
     <div className={styles.container}>

@@ -1,6 +1,7 @@
 import SmallLogo from "../../components/smallLogo.js"
 import React from "react";
 import styles from "../../styles/dashboard.module.css"
+import Card from "../../components/card.js";
 
 export default class Dashboard extends React.Component {
     constructor(props) {
@@ -39,6 +40,9 @@ export default class Dashboard extends React.Component {
                         <button className={styles.button}>Send to wallet</button>
                         <button className={styles.button}>Send to bank</button>
                     </div>
+                    {/* <div className={styles.cardContainer}>
+                        <Card/>
+                    </div> */}
                 </div>  
             </div>
         );
